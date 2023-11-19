@@ -3,4 +3,5 @@
 Venv at the sneakerchronicles level.
 
 to run server:
-python manage.py runserver
+- nav to outer mysite/
+- python manage.py runserver
