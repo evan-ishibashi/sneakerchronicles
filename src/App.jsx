@@ -7,11 +7,20 @@ import { useGA4 } from './hooks/useGA4'
 
 // Main App Component
 function App() {
+  return (
+    <Router>
+      <AppContent />
+    </Router>
+  )
+}
+
+// App content component that uses GA4 hook inside Router context
+function AppContent() {
   // Initialize GA4 tracking
   useGA4();
 
   return (
-    <Router>
+    <>
       <ScrollToTop />
       <div className="app">
         <Routes>
@@ -19,7 +28,7 @@ function App() {
           <Route path="/sneaker/:id" element={<SneakerDetail />} />
         </Routes>
       </div>
-    </Router>
+    </>
   )
 }
 
