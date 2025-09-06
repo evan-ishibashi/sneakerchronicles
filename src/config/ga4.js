@@ -1,8 +1,7 @@
 // Google Analytics 4 Configuration
 export const GA4_CONFIG = {
-  // Replace 'GA_MEASUREMENT_ID' with your actual GA4 Measurement ID
-  // You can find this in your Google Analytics account under Admin > Data Streams
-  MEASUREMENT_ID: 'GA_MEASUREMENT_ID',
+  // Your GA4 Measurement ID
+  MEASUREMENT_ID: 'G-15LPF4XP8X',
 
   // Development mode - set to false in production
   DEBUG_MODE: process.env.NODE_ENV === 'development',
