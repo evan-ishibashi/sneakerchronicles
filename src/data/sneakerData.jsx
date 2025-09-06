@@ -146,32 +146,11 @@ export const sneakerPosts = [
     description: "Welcome to Sneaker Chronicles! Discover new and exotic Sneakers you've never seen before!"
   },
   {
-    id: 6,
-    title: "New Balance 550 White",
+    id: 1,
+    title: "Air Jordan 1 Retro High OG",
     image: "https://images.unsplash.com/photo-1549298916-b41d501d3772?w=400&h=400&fit=crop",
-    releaseDate: "2024-02-10",
-    description: "Clean and minimal basketball-inspired silhouette perfect for everyday wear."
-  },
-  {
-    id: 5,
-    title: "Travis Scott x Air Jordan 1",
-    image: "https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=400&h=400&fit=crop",
-    releaseDate: "2024-02-05",
-    description: "The highly coveted Travis Scott collaboration with reverse swoosh and hidden details."
-  },
-  {
-    id: 4,
-    title: "Off-White x Nike Blazer",
-    image: "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=400&h=400&fit=crop",
-    releaseDate: "2024-02-01",
-    description: "Virgil Abloh's deconstructed take on the classic Nike Blazer."
-  },
-  {
-    id: 3,
-    title: "Yeezy Boost 350 V2",
-    image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&h=600&fit=crop",
-    releaseDate: "2024-01-25",
-    description: "Kanye's signature silhouette with Boost technology for ultimate comfort."
+    releaseDate: "2024-01-15",
+    description: "The iconic Air Jordan 1 in its original colorway. A must-have for any sneaker collection."
   },
   {
     id: 2,
@@ -181,10 +160,31 @@ export const sneakerPosts = [
     description: "Clean black and white colorway that goes with everything. Perfect for daily wear."
   },
   {
-    id: 1,
-    title: "Air Jordan 1 Retro High OG",
+    id: 3,
+    title: "Yeezy Boost 350 V2",
+    image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&h=600&fit=crop",
+    releaseDate: "2024-01-25",
+    description: "Kanye's signature silhouette with Boost technology for ultimate comfort."
+  },
+  {
+    id: 4,
+    title: "Off-White x Nike Blazer",
+    image: "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=400&h=400&fit=crop",
+    releaseDate: "2024-02-01",
+    description: "Virgil Abloh's deconstructed take on the classic Nike Blazer."
+  },
+  {
+    id: 5,
+    title: "Travis Scott x Air Jordan 1",
+    image: "https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=400&h=400&fit=crop",
+    releaseDate: "2024-02-05",
+    description: "The highly coveted Travis Scott collaboration with reverse swoosh and hidden details."
+  },
+  {
+    id: 6,
+    title: "New Balance 550 White",
     image: "https://images.unsplash.com/photo-1549298916-b41d501d3772?w=400&h=400&fit=crop",
-    releaseDate: "2024-01-15",
-    description: "The iconic Air Jordan 1 in its original colorway. A must-have for any sneaker collection."
+    releaseDate: "2024-02-10",
+    description: "Clean and minimal basketball-inspired silhouette perfect for everyday wear."
   }
 ]

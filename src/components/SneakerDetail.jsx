@@ -1,5 +1,6 @@
 import { useParams, Link } from 'react-router-dom'
 import { sneakerData } from '../data/sneakerData.jsx'
+import TrackableLink from './TrackableLink'
 
 // Sneaker Detail Page Component
 function SneakerDetail() {
@@ -47,19 +48,34 @@ function SneakerDetail() {
 
             <div className="detail-links">
               {sneaker.instagramUrl && sneaker.instagramUrl !== "#" && (
-                <a href={sneaker.instagramUrl} target="_blank" rel="noopener noreferrer" className="detail-link">
+                <TrackableLink
+                  href={sneaker.instagramUrl}
+                  eventCategory="social_media"
+                  eventLabel="Instagram"
+                  className="detail-link"
+                >
                   📸 Instagram Post
-                </a>
+                </TrackableLink>
               )}
               {sneaker.youtubeUrl && sneaker.youtubeUrl !== "#" && (
-                <a href={sneaker.youtubeUrl} target="_blank" rel="noopener noreferrer" className="detail-link">
+                <TrackableLink
+                  href={sneaker.youtubeUrl}
+                  eventCategory="social_media"
+                  eventLabel="YouTube"
+                  className="detail-link"
+                >
                   🎥 YouTube Review
-                </a>
+                </TrackableLink>
               )}
               {sneaker.ebayUrl && sneaker.ebayUrl !== "#" && (
-                <a href={sneaker.ebayUrl} target="_blank" rel="noopener noreferrer" className="detail-link">
+                <TrackableLink
+                  href={sneaker.ebayUrl}
+                  eventCategory="ecommerce"
+                  eventLabel="eBay"
+                  className="detail-link"
+                >
                   🛒 Find on eBay
-                </a>
+                </TrackableLink>
               )}
             </div>
           </div>
