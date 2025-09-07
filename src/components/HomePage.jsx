@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { sneakerPosts } from '../data/sneakerData.jsx'
 import { useGA4 } from '../hooks/useGA4'
+import sneakerImage from '../assets/nike-tom-sachs-overshoe-sfb-sole-swapped-side-2.jpg'
 
 // Homepage Component
 function HomePage() {
@@ -28,6 +29,13 @@ function HomePage() {
       {/* Header */}
       <header className="header">
         <div className="header-content">
+          <div className="logo-container">
+            <img
+              src={sneakerImage}
+              alt="Sneaker Chronicles Logo"
+              className="brand-logo"
+            />
+          </div>
           <h1 className="brand-title">Sneaker Chronicles</h1>
           <p className="brand-subtitle">Discover. Research. Collect.</p>
         </div>
