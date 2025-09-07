@@ -1,3 +1,4 @@
+import React from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import './App.css'
 import HomePage from './components/HomePage'
@@ -17,7 +18,13 @@ function App() {
 // App content component that uses GA4 hook inside Router context
 function AppContent() {
   // Initialize GA4 tracking
-  useGA4();
+  const { trackReferrer, trackUTMParameters } = useGA4();
+
+  // Track referrer and UTM parameters on app load
+  React.useEffect(() => {
+    trackReferrer();
+    trackUTMParameters();
+  }, [trackReferrer, trackUTMParameters]);
 
   return (
     <>
