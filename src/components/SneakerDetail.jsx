@@ -64,7 +64,7 @@ function SneakerDetail() {
                   eventLabel="YouTube"
                   className="detail-link"
                 >
-                  🎥 YouTube Review
+                  🎥 YouTube Video
                 </TrackableLink>
               )}
               {sneaker.ebayUrl && sneaker.ebayUrl !== "#" && (
@@ -84,7 +84,7 @@ function SneakerDetail() {
         {/* Blog Post Section */}
         <div className="blog-post-section">
           <div className="container">
-            <h2 className="blog-title">My Take</h2>
+            <h2 className="blog-title">Chronicle</h2>
             <div className="affiliate-disclosure">
               <p>This post contains affiliate links. If you purchase through these links, I may earn a commission at no extra cost to you.</p>
             </div>
