@@ -86,7 +86,7 @@ function SneakerDetail() {
           <div className="container">
             <h2 className="blog-title">Chronicle</h2>
             <div className="affiliate-disclosure">
-              <p>This post contains affiliate links. If you purchase through these links, I may earn a commission at no extra cost to you.</p>
+              <p>This post may contain affiliate links. If you purchase through these links, I may earn a commission at no extra cost to you.</p>
             </div>
             <div className="blog-content">
               {sneaker.blogPost}
