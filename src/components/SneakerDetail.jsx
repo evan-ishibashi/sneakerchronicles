@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { useSneakerData } from '../hooks/useSneakerData'
+import { useDocumentHead } from '../hooks/useDocumentHead'
 import TrackableLink from './TrackableLink'
 import LazyImage from './LazyImage'
 
@@ -14,6 +15,15 @@ function SneakerDetail() {
     const today = new Date()
     return today.toISOString().split('T')[0] // Returns YYYY-MM-DD format
   }, [])
+
+  // Set up dynamic meta tags for SEO - MUST be called before any early returns
+  useDocumentHead({
+    title: sneaker ? `${sneaker.title} | Sneaker Chronicles` : 'Sneaker Chronicles',
+    description: sneaker ? `${sneaker.description} - Discover the story behind this rare sneaker collaboration. Read our in-depth analysis of design, history, and cultural significance.` : 'Discover rare and exotic sneakers you\'ve never seen before',
+    keywords: sneaker ? `${sneaker.title}, rare sneakers, Nike collaboration, limited edition sneakers, sneaker culture, ${sneaker.title.toLowerCase().replace(/\s+/g, ', ')}, exclusive sneakers, sneaker history` : 'sneakers, rare sneakers, limited edition, sneaker culture',
+    image: sneaker?.image,
+    url: sneaker ? `https://sneakerchronicles.com/sneaker/${sneaker.slug}` : 'https://sneakerchronicles.com'
+  });
 
   // Show loading state
   if (loading) {
