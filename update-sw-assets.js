@@ -5,8 +5,12 @@
  * Run this after each build to ensure the service worker caches the correct files
  */
 
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const DIST_DIR = path.join(__dirname, 'dist');
 const SW_PATH = path.join(__dirname, 'public', 'sw.js');
@@ -84,8 +88,9 @@ function updateServiceWorker() {
   staticAssets.forEach(asset => console.log(`  - ${asset}`));
 }
 
-if (require.main === module) {
+// Run if this is the main module
+if (import.meta.url === `file://${process.argv[1]}`) {
   updateServiceWorker();
 }
 
-module.exports = { updateServiceWorker, getAssetsFromDist };
+export { updateServiceWorker, getAssetsFromDist };

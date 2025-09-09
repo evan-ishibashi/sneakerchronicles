@@ -10,10 +10,10 @@ const STATIC_ASSETS = [
   '/index.html',
   '/robots.txt',
   '/sitemap.xml',
-  // Core Vite-generated assets (these will be updated with each build)
-  '/assets/index-W957b1u7.js',
+  '/assets/index-Ds6WrRyq.js',
+  '/assets/nike-tom-sachs-overshoe-sfb-sole-swapped-side-2-optimized-DLTeUcf4.jpg',
   '/assets/vendor-DEQ385Nk.js',
-  '/assets/router-njTIs1Bt.js',
+  '/assets/router-CimB4GcN.js',
   '/assets/index-DGT9QyHA.css',
   '/assets/nike-tom-sachs-overshoe-sfb-sole-swapped-side-2-optimized-DLTeUcf4.jpg'
 ];
