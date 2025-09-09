@@ -1,19 +1,49 @@
+import React, { useMemo } from 'react'
 import { useParams, Link } from 'react-router-dom'
-import { sneakerData } from '../data/sneakerData.jsx'
+import { useSneakerData } from '../hooks/useSneakerData'
 import TrackableLink from './TrackableLink'
+import LazyImage from './LazyImage'
 
 // Sneaker Detail Page Component
 function SneakerDetail() {
-  const { id } = useParams()
-  const sneakerId = parseInt(id)
+  const { slug } = useParams()
+  const { sneaker, loading, error } = useSneakerData(slug)
 
-  const getCurrentDate = () => {
+  // Memoize current date calculation
+  const currentDate = useMemo(() => {
     const today = new Date()
     return today.toISOString().split('T')[0] // Returns YYYY-MM-DD format
+  }, [])
+
+  // Show loading state
+  if (loading) {
+    return (
+      <div className="sneaker-detail">
+        <div className="container">
+          <Link to="/" className="back-button">← Back to Home</Link>
+          <div className="loading-message">
+            <h1>Loading...</h1>
+            <p>Fetching sneaker details...</p>
+          </div>
+        </div>
+      </div>
+    )
   }
 
-  const currentDate = getCurrentDate()
-  const sneaker = sneakerData[sneakerId] || sneakerData[1]
+  // Show error state
+  if (error || !sneaker) {
+    return (
+      <div className="sneaker-detail">
+        <div className="container">
+          <Link to="/" className="back-button">← Back to Home</Link>
+          <div className="error-message">
+            <h1>Sneaker Not Found</h1>
+            <p>The sneaker you're looking for doesn't exist or couldn't be loaded.</p>
+          </div>
+        </div>
+      </div>
+    )
+  }
 
   // Check if the post is published (including today)
   const isPublished = sneaker.releaseDate <= currentDate
@@ -39,7 +69,7 @@ function SneakerDetail() {
 
         <div className="detail-content">
           <div className="detail-image">
-            <img src={sneaker.image} alt={sneaker.title} />
+            <LazyImage src={sneaker.image} alt={sneaker.title} />
           </div>
 
           <div className="detail-info">

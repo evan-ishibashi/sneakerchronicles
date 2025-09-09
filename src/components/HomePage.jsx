@@ -1,28 +1,48 @@
+import React, { useMemo } from 'react'
 import { Link } from 'react-router-dom'
-import { sneakerPosts } from '../data/sneakerData.jsx'
+import { sneakerPosts } from '../data/sneakers/index.js'
 import { useGA4 } from '../hooks/useGA4'
+import LazyImage from './LazyImage'
 import sneakerImage from '../assets/nike-tom-sachs-overshoe-sfb-sole-swapped-side-2.jpg'
+
+// Sneaker Card Component (memoized for performance)
+const SneakerCard = React.memo(({ sneaker, onSneakerClick }) => (
+  <Link
+    to={`/sneaker/${sneaker.slug}`}
+    className="sneaker-card"
+    onClick={() => onSneakerClick(sneaker)}
+  >
+    <div className="sneaker-image">
+      <LazyImage src={sneaker.image} alt={sneaker.title} />
+    </div>
+    <div className="sneaker-info">
+      <h3 className="sneaker-title">{sneaker.title}</h3>
+      <p className="sneaker-description">{sneaker.description}</p>
+    </div>
+  </Link>
+));
 
 // Homepage Component
 function HomePage() {
   const { trackSneakerClick } = useGA4();
 
-  // Filter posts to only show those that have been released
-  const getCurrentDate = () => {
+  // Memoize current date calculation
+  const currentDate = useMemo(() => {
     const today = new Date()
     return today.toISOString().split('T')[0] // Returns YYYY-MM-DD format
-  }
+  }, [])
 
-  const currentDate = getCurrentDate()
+  // Memoize published posts filtering
+  const publishedPosts = useMemo(() => {
+    return sneakerPosts.filter(sneaker => {
+      return sneaker.releaseDate <= currentDate
+    })
+  }, [currentDate])
 
-  const publishedPosts = sneakerPosts.filter(sneaker => {
-    return sneaker.releaseDate <= currentDate
-  })
-
-  // Handle sneaker card click tracking
-  const handleSneakerClick = (sneaker) => {
+  // Memoize click handler
+  const handleSneakerClick = useMemo(() => (sneaker) => {
     trackSneakerClick(sneaker.id, sneaker.title);
-  }
+  }, [trackSneakerClick])
 
   return (
     <div className="homepage">
@@ -47,20 +67,11 @@ function HomePage() {
           <h2 className="section-title">Latest Features</h2>
           <div className="sneaker-grid">
             {publishedPosts.map((sneaker) => (
-              <Link
+              <SneakerCard
                 key={sneaker.id}
-                to={`/sneaker/${sneaker.id}`}
-                className="sneaker-card"
-                onClick={() => handleSneakerClick(sneaker)}
-              >
-                <div className="sneaker-image">
-                  <img src={sneaker.image} alt={sneaker.title} />
-                </div>
-                <div className="sneaker-info">
-                  <h3 className="sneaker-title">{sneaker.title}</h3>
-                  <p className="sneaker-description">{sneaker.description}</p>
-                </div>
-              </Link>
+                sneaker={sneaker}
+                onSneakerClick={handleSneakerClick}
+              />
             ))}
           </div>
         </div>
