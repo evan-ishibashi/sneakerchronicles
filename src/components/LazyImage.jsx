@@ -67,9 +67,17 @@ const LazyImage = ({
   useEffect(() => {
     if (isInView && src) {
       const optimizedSrc = getOptimizedImageUrl(src, width, quality);
+
+      // Add cache-busting parameter for Cloudinary URLs
+      let finalSrc = optimizedSrc;
+      if (optimizedSrc.includes('res.cloudinary.com')) {
+        const separator = optimizedSrc.includes('?') ? '&' : '?';
+        finalSrc = `${optimizedSrc}${separator}_cb=${Date.now()}`;
+      }
+
       const img = new Image();
       img.onload = () => {
-        setImageSrc(optimizedSrc);
+        setImageSrc(finalSrc);
         setIsLoaded(true);
       };
       img.onerror = () => {
@@ -86,7 +94,7 @@ const LazyImage = ({
         };
         fallbackImg.src = src;
       };
-      img.src = optimizedSrc;
+      img.src = finalSrc;
     }
   }, [isInView, src, placeholder, width, quality]);
 

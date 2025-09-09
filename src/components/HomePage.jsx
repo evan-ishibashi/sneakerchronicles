@@ -7,27 +7,53 @@ import LazyImage from './LazyImage'
 import sneakerImage from '../assets/nike-tom-sachs-overshoe-sfb-sole-swapped-side-2-optimized.jpg'
 
 // Sneaker Card Component (memoized for performance)
-const SneakerCard = React.memo(({ sneaker, onSneakerClick, isFirst = false }) => (
-  <Link
-    to={`/sneaker/${sneaker.slug}`}
-    className="sneaker-card"
-    onClick={() => onSneakerClick(sneaker)}
-  >
-    <div className="sneaker-image">
-      <LazyImage
-        src={sneaker.image}
-        alt={sneaker.title}
-        width={isFirst ? 800 : 600}
-        quality={isFirst ? 90 : 85}
-        loading={isFirst ? "eager" : "lazy"}
-      />
-    </div>
-    <div className="sneaker-info">
-      <h3 className="sneaker-title">{sneaker.title}</h3>
-      <p className="sneaker-description">{sneaker.description}</p>
-    </div>
-  </Link>
-));
+const SneakerCard = React.memo(({ sneaker, onSneakerClick, isFirst = false }) => {
+  // For the first image, load immediately without lazy loading
+  if (isFirst) {
+    return (
+      <Link
+        to={`/sneaker/${sneaker.slug}`}
+        className="sneaker-card"
+        onClick={() => onSneakerClick(sneaker)}
+      >
+        <div className="sneaker-image">
+          <img
+            src={sneaker.image}
+            alt={sneaker.title}
+            loading="eager"
+            style={{ width: '100%', height: 'auto' }}
+          />
+        </div>
+        <div className="sneaker-info">
+          <h3 className="sneaker-title">{sneaker.title}</h3>
+          <p className="sneaker-description">{sneaker.description}</p>
+        </div>
+      </Link>
+    );
+  }
+
+  return (
+    <Link
+      to={`/sneaker/${sneaker.slug}`}
+      className="sneaker-card"
+      onClick={() => onSneakerClick(sneaker)}
+    >
+      <div className="sneaker-image">
+        <LazyImage
+          src={sneaker.image}
+          alt={sneaker.title}
+          width={600}
+          quality={85}
+          loading="lazy"
+        />
+      </div>
+      <div className="sneaker-info">
+        <h3 className="sneaker-title">{sneaker.title}</h3>
+        <p className="sneaker-description">{sneaker.description}</p>
+      </div>
+    </Link>
+  );
+});
 
 // Homepage Component
 function HomePage() {
@@ -54,6 +80,23 @@ function HomePage() {
   // Preload the first sneaker image for better LCP
   const firstImageUrl = publishedPosts.length > 0 ? publishedPosts[0].image : null;
   useImagePreload(firstImageUrl);
+
+  // Also preload the first image directly in the DOM for immediate LCP
+  React.useEffect(() => {
+    if (firstImageUrl && typeof window !== 'undefined') {
+      const link = document.createElement('link');
+      link.rel = 'preload';
+      link.as = 'image';
+      link.href = firstImageUrl;
+      document.head.appendChild(link);
+
+      return () => {
+        if (document.head.contains(link)) {
+          document.head.removeChild(link);
+        }
+      };
+    }
+  }, [firstImageUrl]);
 
   return (
     <div className="homepage">

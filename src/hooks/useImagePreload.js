@@ -16,7 +16,7 @@ export const useImagePreload = (imageUrl) => {
     let optimizedUrl = imageUrl;
     if (imageUrl.includes('res.cloudinary.com')) {
       const separator = imageUrl.includes('?') ? '&' : '?';
-      optimizedUrl = `${imageUrl}${separator}_v=${Date.now()}`;
+      optimizedUrl = `${imageUrl}${separator}_v=${Date.now()}&_cb=${Math.random()}`;
     }
 
     link.href = optimizedUrl;

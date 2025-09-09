@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useCallback } from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import './App.css'
 import HomePage from './components/HomePage'
@@ -30,7 +30,7 @@ function AppContent() {
   usePerformanceMonitor();
 
   // Track referrer and UTM parameters on app load
-  React.useEffect(() => {
+  useEffect(() => {
     trackReferrer();
     trackUTMParameters();
   }, []); // Empty dependency array since these functions are stable
