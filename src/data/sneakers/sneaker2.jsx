@@ -76,7 +76,12 @@ const sneaker2 = {
   ),
   instagramUrl: "https://www.instagram.com/p/CRaLo8fBBxQ/",
   youtubeUrl: "https://youtube.com/shorts/wmXFAHZX8gs?si=GpiHwW1pxY-PGPEj",
-  ebayUrl: "https://ebay.us/fqRohf"
+  storeUrls: {
+    ebay: "https://ebay.us/fqRohf",
+    stockx: "https://stockx.com/nike-tom-sachs-mars-yard-overshoe",
+    goat: "https://www.goat.com/sneakers/nike-tom-sachs-mars-yard-overshoe",
+    amazon: ""
+  }
 };
 
 export default sneaker2;

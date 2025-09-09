@@ -66,7 +66,12 @@ const sneaker3 = {
   ),
   instagramUrl: "https://www.instagram.com/p/CVLlSnTBzSv/",
   youtubeUrl: "https://youtube.com/shorts/_CV-5yPKUkU",
-  ebayUrl: "https://www.ebay.com/sch/i.html?_nkw=Nike+Bionicle+Shoe&_sacat=0&_from=R40&_trksid=p4432023.m570.l1313&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339121953&customid=bionicle&toolid=10001&mkevt=1"
+  storeUrls: {
+    ebay: "https://www.ebay.com/sch/i.html?_nkw=Nike+Bionicle+Shoe&_sacat=0&_from=R40&_trksid=p4432023.m570.l1313&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339121953&customid=bionicle&toolid=10001&mkevt=1",
+    stockx: "",
+    goat: "",
+    amazon: "https://www.amazon.com/s?k=Nike+Bionicle+Shoe"
+  }
 };
 
 export default sneaker3;

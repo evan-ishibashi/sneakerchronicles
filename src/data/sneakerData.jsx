@@ -22,7 +22,12 @@ export const sneakerData = {
     ),
     instagramUrl: "https://www.instagram.com/p/CRDl_ROhNsX/",
     youtubeUrl: "",
-    ebayUrl: "https://ebay.com/inf/sneakerchronicles/collections/34511323150?mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339121881&toolid=80010&mkevt=1"
+    storeUrls: {
+      ebay: "https://ebay.com/inf/sneakerchronicles/collections/34511323150?mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339121881&toolid=80010&mkevt=1",
+      stockx: "",
+      goat: "",
+      amazon: ""
+    }
   },
   2: {
     id: 2,
@@ -87,7 +92,12 @@ export const sneakerData = {
     ),
     instagramUrl: "https://www.instagram.com/p/CRaLo8fBBxQ/",
     youtubeUrl: "https://youtube.com/shorts/wmXFAHZX8gs?si=GpiHwW1pxY-PGPEj",
-    ebayUrl: "https://ebay.us/fqRohf"
+    storeUrls: {
+      ebay: "https://ebay.us/fqRohf",
+      stockx: "https://stockx.com/nike-tom-sachs-mars-yard-overshoe",
+      goat: "https://www.goat.com/sneakers/nike-tom-sachs-mars-yard-overshoe",
+      amazon: ""
+    }
   },
   3: {
     id: 3,
@@ -142,7 +152,12 @@ export const sneakerData = {
     ),
     instagramUrl: "https://www.instagram.com/p/CVLlSnTBzSv/",
     youtubeUrl: "https://youtube.com/shorts/_CV-5yPKUkU",
-    ebayUrl: "https://www.ebay.com/sch/i.html?_nkw=Nike+Bionicle+Shoe&_sacat=0&_from=R40&_trksid=p4432023.m570.l1313&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339121953&customid=bionicle&toolid=10001&mkevt=1"
+    storeUrls: {
+      ebay: "https://www.ebay.com/sch/i.html?_nkw=Nike+Bionicle+Shoe&_sacat=0&_from=R40&_trksid=p4432023.m570.l1313&mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339121953&customid=bionicle&toolid=10001&mkevt=1",
+      stockx: "",
+      goat: "",
+      amazon: "https://www.amazon.com/s?k=Nike+Bionicle+Shoe"
+    }
   }
 }
 

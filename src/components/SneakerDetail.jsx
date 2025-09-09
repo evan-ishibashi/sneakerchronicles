@@ -5,6 +5,7 @@ import { useDocumentHead } from '../hooks/useDocumentHead'
 import { useGA4 } from '../hooks/useGA4'
 import TrackableLink from './TrackableLink'
 import LazyImage from './LazyImage'
+import StoreLinksPopup from './StoreLinksPopup'
 
 // Sneaker Detail Page Component
 function SneakerDetail() {
@@ -192,21 +193,14 @@ function SneakerDetail() {
                   🎥 YouTube Video
                 </TrackableLink>
               )}
-              {sneaker.ebayUrl && sneaker.ebayUrl !== "#" && (
-                <TrackableLink
-                  href={sneaker.ebayUrl}
-                  eventCategory="ecommerce"
-                  eventLabel="eBay"
-                  className="detail-link"
-                  sneakerContext={{
-                    sneakerId: sneaker.id,
-                    sneakerTitle: sneaker.title,
-                    sneakerSlug: sneaker.slug
-                  }}
-                >
-                  🛒 Find on eBay
-                </TrackableLink>
-              )}
+              <StoreLinksPopup
+                storeUrls={sneaker.storeUrls}
+                sneakerContext={{
+                  sneakerId: sneaker.id,
+                  sneakerTitle: sneaker.title,
+                  sneakerSlug: sneaker.slug
+                }}
+              />
             </div>
           </div>
         </div>

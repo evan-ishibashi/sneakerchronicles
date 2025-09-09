@@ -32,7 +32,12 @@ const sneaker1 = {
   ),
   instagramUrl: "https://www.instagram.com/p/CRDl_ROhNsX/",
   youtubeUrl: "",
-  ebayUrl: "https://ebay.com/inf/sneakerchronicles/collections/34511323150?mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339121881&toolid=80010&mkevt=1"
+  storeUrls: {
+    ebay: "https://ebay.com/inf/sneakerchronicles/collections/34511323150?mkcid=1&mkrid=711-53200-19255-0&siteid=0&campid=5339121881&toolid=80010&mkevt=1",
+    stockx: "",
+    goat: "",
+    amazon: ""
+  }
 };
 
 export default sneaker1;
