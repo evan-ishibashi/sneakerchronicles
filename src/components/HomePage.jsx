@@ -2,7 +2,6 @@ import React, { useMemo } from 'react'
 import { Link } from 'react-router-dom'
 import { sneakerPosts } from '../data/sneakers/index.js'
 import { useGA4 } from '../hooks/useGA4'
-import { useImagePreload } from '../hooks/useImagePreload'
 import LazyImage from './LazyImage'
 import sneakerImage from '../assets/nike-tom-sachs-overshoe-sfb-sole-swapped-side-2-optimized.jpg'
 
@@ -77,26 +76,7 @@ function HomePage() {
     trackSneakerClick(sneaker.id, sneaker.title);
   }, [trackSneakerClick])
 
-  // Preload the first sneaker image for better LCP
-  const firstImageUrl = publishedPosts.length > 0 ? publishedPosts[0].image : null;
-  useImagePreload(firstImageUrl);
-
-  // Also preload the first image directly in the DOM for immediate LCP
-  React.useEffect(() => {
-    if (firstImageUrl && typeof window !== 'undefined') {
-      const link = document.createElement('link');
-      link.rel = 'preload';
-      link.as = 'image';
-      link.href = firstImageUrl;
-      document.head.appendChild(link);
-
-      return () => {
-        if (document.head.contains(link)) {
-          document.head.removeChild(link);
-        }
-      };
-    }
-  }, [firstImageUrl]);
+  // Note: First image is preloaded in index.html for optimal LCP
 
   return (
     <div className="homepage">
