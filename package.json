@@ -5,10 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
-    "vercel-build": "vite build",
+    "build": "vite build && node update-sw-assets.js",
+    "vercel-build": "vite build && node update-sw-assets.js",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "update-sw": "node update-sw-assets.js"
   },
   "dependencies": {
     "react": "^18.3.1",

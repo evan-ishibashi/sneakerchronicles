@@ -1,4 +1,5 @@
 // Service Worker for Sneaker Chronicles
+// NOTE: After each build, update the STATIC_ASSETS array with the new hashed filenames
 const CACHE_NAME = 'sneaker-chronicles-v1';
 const STATIC_CACHE = 'static-v1';
 const DYNAMIC_CACHE = 'dynamic-v1';
@@ -6,10 +7,38 @@ const DYNAMIC_CACHE = 'dynamic-v1';
 // Assets to cache on install
 const STATIC_ASSETS = [
   '/',
-  '/static/js/bundle.js',
-  '/static/css/main.css',
-  '/manifest.json'
+  '/index.html',
+  '/robots.txt',
+  '/sitemap.xml',
+  // Core Vite-generated assets (these will be updated with each build)
+  '/assets/index-W957b1u7.js',
+  '/assets/vendor-DEQ385Nk.js',
+  '/assets/router-njTIs1Bt.js',
+  '/assets/index-DGT9QyHA.css',
+  '/assets/nike-tom-sachs-overshoe-sfb-sole-swapped-side-2-optimized-DLTeUcf4.jpg'
 ];
+
+// Function to safely cache assets with individual error handling
+async function cacheAssetsSafely(cache, assets) {
+  const results = await Promise.allSettled(
+    assets.map(async (asset) => {
+      try {
+        await cache.add(asset);
+        console.log(`Successfully cached: ${asset}`);
+        return { asset, success: true };
+      } catch (error) {
+        console.warn(`Failed to cache ${asset}:`, error.message);
+        return { asset, success: false, error: error.message };
+      }
+    })
+  );
+
+  const successful = results.filter(r => r.status === 'fulfilled' && r.value.success).length;
+  const failed = results.length - successful;
+
+  console.log(`Cache operation completed: ${successful} successful, ${failed} failed`);
+  return results;
+}
 
 // Install event - cache static assets
 self.addEventListener('install', (event) => {
@@ -17,10 +46,18 @@ self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(STATIC_CACHE)
       .then((cache) => {
-        console.log('Caching static assets');
-        return cache.addAll(STATIC_ASSETS);
+        console.log('Caching static assets safely...');
+        return cacheAssetsSafely(cache, STATIC_ASSETS);
       })
-      .then(() => self.skipWaiting())
+      .then(() => {
+        console.log('Service Worker installation completed');
+        return self.skipWaiting();
+      })
+      .catch((error) => {
+        console.error('Service Worker installation failed:', error);
+        // Still try to skip waiting even if caching fails
+        return self.skipWaiting();
+      })
   );
 });
 
@@ -80,8 +117,8 @@ self.addEventListener('fetch', (event) => {
             });
         })
     );
-  } else if (url.pathname === '/' || url.pathname.endsWith('.js') || url.pathname.endsWith('.css')) {
-    // For main app and static assets, cache first
+  } else if (url.pathname === '/' || url.pathname.startsWith('/assets/') || url.pathname.endsWith('.js') || url.pathname.endsWith('.css') || url.pathname.endsWith('.html')) {
+    // For main app and static assets (including Vite-generated assets), cache first
     event.respondWith(
       caches.match(request)
         .then((cachedResponse) => {
@@ -90,12 +127,19 @@ self.addEventListener('fetch', (event) => {
           }
           return fetch(request)
             .then((response) => {
-              const responseClone = response.clone();
-              caches.open(STATIC_CACHE)
-                .then((cache) => {
-                  cache.put(request, responseClone);
-                });
+              if (response.status === 200) {
+                const responseClone = response.clone();
+                caches.open(STATIC_CACHE)
+                  .then((cache) => {
+                    cache.put(request, responseClone);
+                  });
+              }
               return response;
+            })
+            .catch((error) => {
+              console.warn('Failed to fetch resource:', request.url, error);
+              // Return a fallback response if available
+              return caches.match('/');
             });
         })
     );
