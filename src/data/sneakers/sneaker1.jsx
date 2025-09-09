@@ -3,7 +3,7 @@ const sneaker1 = {
   id: 1,
   slug: "welcome-to-sneaker-chronicles",
   title: "Welcome to Sneaker Chronicles",
-  image: "https://res.cloudinary.com/dnowyn8vw/image/upload/v1757197734/welcome-sample-shoes.jpg",
+  image: "https://res.cloudinary.com/dnowyn8vw/image/upload/w_800,q_85,f_auto/v1757197734/welcome-sample-shoes.jpg",
   releaseDate: "2025-09-06",
   description: "Welcome to Sneaker Chronicles! Discover new and exotic Sneakers you've never seen before!",
   blogPost: (

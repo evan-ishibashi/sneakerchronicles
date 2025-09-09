@@ -3,7 +3,7 @@ const sneaker2 = {
   id: 2,
   slug: "tom-sachs-mars-yard-overshoe-sole-swapped",
   title: "Tom Sachs Mars Yard Overshoe SOLE SWAPPED",
-  image: "https://res.cloudinary.com/dnowyn8vw/image/upload/v1757197794/nike-tom-sachs-overshoe-sfb-sole-swapped-side-4_kw932w.jpg",
+  image: "https://res.cloudinary.com/dnowyn8vw/image/upload/w_800,q_85,f_auto/v1757197794/nike-tom-sachs-overshoe-sfb-sole-swapped-side-4_kw932w.jpg",
   releaseDate: "2025-09-06",
   description: "The most affordable Tom Sachs Mars Yard Shoe",
   blogPost: (
@@ -36,25 +36,25 @@ const sneaker2 = {
       <p>See the finished product:</p>
 
       <img
-        src="https://res.cloudinary.com/dnowyn8vw/image/upload/v1757197834/nike-tom-sachs-overshoe-sfb-sole-swapped-toe-bottom-rock-landscape_oxan6z.jpg"
+        src="https://res.cloudinary.com/dnowyn8vw/image/upload/w_800,q_85,f_auto/v1757197834/nike-tom-sachs-overshoe-sfb-sole-swapped-toe-bottom-rock-landscape_oxan6z.jpg"
         alt="Tom Sachs Mars Yard Overshoe sole swapped - toe bottom view"
         className="blog-image"
       />
 
       <img
-        src="https://res.cloudinary.com/dnowyn8vw/image/upload/v1757197829/nike-tom-sachs-overshoe-sfb-sole-swapped-side-rock-landscape-3_y5yt75.jpg"
+        src="https://res.cloudinary.com/dnowyn8vw/image/upload/w_800,q_85,f_auto/v1757197829/nike-tom-sachs-overshoe-sfb-sole-swapped-side-rock-landscape-3_y5yt75.jpg"
         alt="Tom Sachs Mars Yard Overshoe sole swapped - side view"
         className="blog-image"
       />
 
       <img
-        src="https://res.cloudinary.com/dnowyn8vw/image/upload/v1757197805/nike-tom-sachs-overshoe-sfb-sole-swapped-midsole-detail_e2fkmy.jpg"
+        src="https://res.cloudinary.com/dnowyn8vw/image/upload/w_800,q_85,f_auto/v1757197805/nike-tom-sachs-overshoe-sfb-sole-swapped-midsole-detail_e2fkmy.jpg"
         alt="Tom Sachs Mars Yard Overshoe sole swapped - midsole detail"
         className="blog-image"
       />
 
       <img
-        src="https://res.cloudinary.com/dnowyn8vw/image/upload/v1757197790/nike-tom-sachs-overshoe-sfb-sole-swapped-toe_arcuza.jpg"
+        src="https://res.cloudinary.com/dnowyn8vw/image/upload/w_800,q_85,f_auto/v1757197790/nike-tom-sachs-overshoe-sfb-sole-swapped-toe_arcuza.jpg"
         alt="Tom Sachs Mars Yard Overshoe sole swapped - toe view"
         className="blog-image"
       />
