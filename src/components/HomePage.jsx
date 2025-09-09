@@ -1,7 +1,8 @@
-import React, { useMemo, useEffect } from 'react'
+import React, { useMemo } from 'react'
 import { Link } from 'react-router-dom'
 import { sneakerPosts } from '../data/sneakers/index.js'
 import { useGA4 } from '../hooks/useGA4'
+import { useImagePreload } from '../hooks/useImagePreload'
 import LazyImage from './LazyImage'
 import sneakerImage from '../assets/nike-tom-sachs-overshoe-sfb-sole-swapped-side-2-optimized.jpg'
 
@@ -51,25 +52,8 @@ function HomePage() {
   }, [trackSneakerClick])
 
   // Preload the first sneaker image for better LCP
-  useEffect(() => {
-    if (publishedPosts.length > 0) {
-      const firstImage = publishedPosts[0].image;
-      if (firstImage) {
-        const link = document.createElement('link');
-        link.rel = 'preload';
-        link.as = 'image';
-        link.href = firstImage;
-        document.head.appendChild(link);
-
-        // Cleanup function
-        return () => {
-          if (document.head.contains(link)) {
-            document.head.removeChild(link);
-          }
-        };
-      }
-    }
-  }, [publishedPosts])
+  const firstImageUrl = publishedPosts.length > 0 ? publishedPosts[0].image : null;
+  useImagePreload(firstImageUrl);
 
   return (
     <div className="homepage">
