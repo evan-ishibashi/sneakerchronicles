@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { sneakerPosts } from '../data/sneakers/index.js'
 import { useGA4 } from '../hooks/useGA4'
 import LazyImage from './LazyImage'
-import sneakerImage from '../assets/nike-tom-sachs-overshoe-sfb-sole-swapped-side-2.jpg'
+import sneakerImage from '../assets/nike-tom-sachs-overshoe-sfb-sole-swapped-side-2-optimized.jpg'
 
 // Sneaker Card Component (memoized for performance)
 const SneakerCard = React.memo(({ sneaker, onSneakerClick }) => (
@@ -13,7 +13,13 @@ const SneakerCard = React.memo(({ sneaker, onSneakerClick }) => (
     onClick={() => onSneakerClick(sneaker)}
   >
     <div className="sneaker-image">
-      <LazyImage src={sneaker.image} alt={sneaker.title} />
+      <LazyImage
+        src={sneaker.image}
+        alt={sneaker.title}
+        width={600}
+        quality={85}
+        loading="lazy"
+      />
     </div>
     <div className="sneaker-info">
       <h3 className="sneaker-title">{sneaker.title}</h3>
@@ -50,10 +56,13 @@ function HomePage() {
       <header className="header">
         <div className="header-content">
           <div className="logo-container">
-            <img
+            <LazyImage
               src={sneakerImage}
               alt="Sneaker Chronicles Logo"
               className="brand-logo"
+              width={400}
+              quality={90}
+              loading="eager"
             />
           </div>
           <h1 className="brand-title">Sneaker Chronicles</h1>
