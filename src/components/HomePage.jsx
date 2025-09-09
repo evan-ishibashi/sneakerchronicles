@@ -7,7 +7,7 @@ import LazyImage from './LazyImage'
 import sneakerImage from '../assets/nike-tom-sachs-overshoe-sfb-sole-swapped-side-2-optimized.jpg'
 
 // Sneaker Card Component (memoized for performance)
-const SneakerCard = React.memo(({ sneaker, onSneakerClick }) => (
+const SneakerCard = React.memo(({ sneaker, onSneakerClick, isFirst = false }) => (
   <Link
     to={`/sneaker/${sneaker.slug}`}
     className="sneaker-card"
@@ -17,9 +17,9 @@ const SneakerCard = React.memo(({ sneaker, onSneakerClick }) => (
       <LazyImage
         src={sneaker.image}
         alt={sneaker.title}
-        width={600}
-        quality={85}
-        loading="lazy"
+        width={isFirst ? 800 : 600}
+        quality={isFirst ? 90 : 85}
+        loading={isFirst ? "eager" : "lazy"}
       />
     </div>
     <div className="sneaker-info">
@@ -80,11 +80,12 @@ function HomePage() {
         <div className="container">
           <h2 className="section-title">Latest Features</h2>
           <div className="sneaker-grid">
-            {publishedPosts.map((sneaker) => (
+            {publishedPosts.map((sneaker, index) => (
               <SneakerCard
                 key={sneaker.id}
                 sneaker={sneaker}
                 onSneakerClick={handleSneakerClick}
+                isFirst={index === 0}
               />
             ))}
           </div>

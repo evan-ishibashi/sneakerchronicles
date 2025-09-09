@@ -1,14 +1,23 @@
 import React, { useState, useRef, useEffect } from 'react';
 
-// Helper function to get optimized image URL (for cases where data isn't pre-optimized)
+// Helper function to get optimized image URL
 const getOptimizedImageUrl = (originalUrl, width = 800, quality = 80) => {
   if (!originalUrl) return originalUrl;
 
-  // If it's a Cloudinary URL and not already optimized, optimize it
-  if (originalUrl.includes('res.cloudinary.com') && !originalUrl.includes('w_')) {
+  // If it's a Cloudinary URL, ensure it's optimized
+  if (originalUrl.includes('res.cloudinary.com')) {
     const baseUrl = originalUrl.split('/upload/')[0];
     const path = originalUrl.split('/upload/')[1];
-    return `${baseUrl}/upload/w_${width},q_${quality},f_auto/${path}`;
+
+    // Check if already optimized, if so, update the parameters
+    if (originalUrl.includes('w_')) {
+      // Replace existing optimization parameters
+      const pathWithoutParams = path.split('/').slice(1).join('/');
+      return `${baseUrl}/upload/w_${width},q_${quality},f_auto/${pathWithoutParams}`;
+    } else {
+      // Add optimization parameters
+      return `${baseUrl}/upload/w_${width},q_${quality},f_auto/${path}`;
+    }
   }
 
   return originalUrl;

@@ -7,11 +7,19 @@ export const useImagePreload = (imageUrl) => {
   useEffect(() => {
     if (!imageUrl || typeof window === 'undefined') return;
 
-    // Create preload link
+    // Create preload link with cache-busting for Cloudinary URLs
     const link = document.createElement('link');
     link.rel = 'preload';
     link.as = 'image';
-    link.href = imageUrl;
+
+    // Add cache-busting parameter for Cloudinary URLs to ensure optimized versions are loaded
+    let optimizedUrl = imageUrl;
+    if (imageUrl.includes('res.cloudinary.com')) {
+      const separator = imageUrl.includes('?') ? '&' : '?';
+      optimizedUrl = `${imageUrl}${separator}_v=${Date.now()}`;
+    }
+
+    link.href = optimizedUrl;
 
     // Store reference for cleanup
     preloadRef.current = link;
