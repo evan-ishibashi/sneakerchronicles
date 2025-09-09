@@ -3,10 +3,16 @@ import { useEffect } from 'react';
 // Custom hook for managing document head (title, meta tags, etc.)
 export const useDocumentHead = ({ title, description, keywords, image, url }) => {
   useEffect(() => {
-    // Update document title
-    if (title) {
-      document.title = title;
-    }
+    // Only run in browser environment
+    if (typeof window === 'undefined' || typeof document === 'undefined') return;
+
+    // Add a delay to ensure React context is stable
+    const timer = setTimeout(() => {
+      try {
+        // Update document title
+        if (title) {
+          document.title = title;
+        }
 
     // Update meta description
     if (description) {
@@ -37,10 +43,16 @@ export const useDocumentHead = ({ title, description, keywords, image, url }) =>
       updateMetaTag('twitter:title', title);
     }
 
-    // Update canonical URL
-    if (url) {
-      updateCanonicalUrl(url);
-    }
+        // Update canonical URL
+        if (url) {
+          updateCanonicalUrl(url);
+        }
+      } catch (error) {
+        console.error('useDocumentHead error:', error);
+      }
+    }, 500); // Delay to ensure React context is stable
+
+    return () => clearTimeout(timer);
   }, [title, description, keywords, image, url]);
 };
 

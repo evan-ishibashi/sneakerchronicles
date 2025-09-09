@@ -2,6 +2,7 @@ import React, { useMemo } from 'react'
 import { Link } from 'react-router-dom'
 import { sneakerPosts } from '../data/sneakers/index.js'
 import { useGA4 } from '../hooks/useGA4'
+import { useImagePreload } from '../hooks/useImagePreload'
 import LazyImage from './LazyImage'
 import sneakerImage from '../assets/nike-tom-sachs-overshoe-sfb-sole-swapped-side-2-optimized.jpg'
 
@@ -71,12 +72,14 @@ function HomePage() {
     })
   }, [currentDate])
 
+  // Preload the first sneaker image for optimal LCP (generic - works with any first sneaker)
+  const firstSneaker = publishedPosts[0];
+  useImagePreload(firstSneaker?.image);
+
   // Memoize click handler
   const handleSneakerClick = useMemo(() => (sneaker) => {
     trackSneakerClick(sneaker.id, sneaker.title, sneaker.slug);
   }, [trackSneakerClick])
-
-  // Note: First image is preloaded in index.html for optimal LCP
 
   return (
     <div className="homepage">

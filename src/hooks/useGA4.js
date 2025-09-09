@@ -1,26 +1,42 @@
 import { useEffect, useCallback } from 'react';
-import { useLocation } from 'react-router-dom';
 import { getMeasurementId, isGA4Available } from '../config/ga4';
+import { useRouteTracker } from './useRouteTracker';
 
 // Custom hook for GA4 tracking
 export const useGA4 = () => {
-  // Safely get location with fallback
-  let location;
-  try {
-    location = useLocation();
-  } catch (error) {
-    // Fallback for when router context is not available
-    location = { pathname: window.location.pathname, search: window.location.search };
-  }
+  // Get current location safely
+  const getCurrentLocation = () => {
+    if (typeof window === 'undefined') {
+      return { pathname: '/', search: '' };
+    }
+    return {
+      pathname: window.location.pathname,
+      search: window.location.search
+    };
+  };
 
   // Track page views on route changes
-  useEffect(() => {
+  const trackPageView = useCallback(() => {
     if (isGA4Available()) {
+      const location = getCurrentLocation();
       window.gtag('config', getMeasurementId(), {
         page_path: location.pathname + location.search,
       });
     }
-  }, [location]);
+  }, []);
+
+  // Track initial page view
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const timer = setTimeout(trackPageView, 200);
+    return () => clearTimeout(timer);
+  }, [trackPageView]);
+
+  // Track route changes
+  useRouteTracker(trackPageView);
+
+  // Use current location for other functions
+  const location = getCurrentLocation();
 
   // Function to track custom events
   const trackEvent = useCallback((eventName, parameters = {}) => {

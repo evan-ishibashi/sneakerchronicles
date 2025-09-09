@@ -11,6 +11,11 @@ export const sneakerModules = {
 export const optimizeCloudinaryUrl = (url, width = 600, quality = 85) => {
   if (!url.includes('res.cloudinary.com')) return url;
 
+  // Check if URL is already optimized
+  if (url.includes('/w_') && url.includes(',q_') && url.includes(',f_auto/')) {
+    return url;
+  }
+
   const baseUrl = url.split('/upload/')[0];
   const path = url.split('/upload/')[1];
   return `${baseUrl}/upload/w_${width},q_${quality},f_auto/${path}`;

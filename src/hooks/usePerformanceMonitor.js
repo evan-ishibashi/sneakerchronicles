@@ -3,8 +3,14 @@ import { useEffect } from 'react';
 // Custom hook to monitor performance metrics
 export const usePerformanceMonitor = () => {
   useEffect(() => {
-    // Monitor Core Web Vitals
-    const monitorPerformance = () => {
+    // Only run in browser environment
+    if (typeof window === 'undefined') return;
+
+    // Add a delay to ensure React context is stable
+    const timer = setTimeout(() => {
+      try {
+        // Monitor Core Web Vitals
+        const monitorPerformance = () => {
       // Largest Contentful Paint (LCP)
       if ('PerformanceObserver' in window) {
         const lcpObserver = new PerformanceObserver((list) => {
@@ -96,6 +102,12 @@ export const usePerformanceMonitor = () => {
       });
     };
 
-    monitorPerformance();
+        monitorPerformance();
+      } catch (error) {
+        console.error('Performance monitor hook error:', error);
+      }
+    }, 1000); // Increased delay to ensure React context is stable
+
+    return () => clearTimeout(timer);
   }, []);
 };
