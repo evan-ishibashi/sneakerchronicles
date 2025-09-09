@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 
 // Custom hook to register service worker
 export const useServiceWorker = () => {

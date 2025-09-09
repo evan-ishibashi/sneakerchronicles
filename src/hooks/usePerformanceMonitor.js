@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 
 // Custom hook to monitor performance metrics
 export const usePerformanceMonitor = () => {

@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { findSneakerBySlug, getSneakerById } from '../data/sneakers/index.js';
 
 // Custom hook for lazy loading sneaker data
