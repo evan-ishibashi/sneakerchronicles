@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 // Custom hook for preloading images
 export const useImagePreload = (imageUrl) => {
