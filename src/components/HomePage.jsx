@@ -73,16 +73,11 @@ function HomePage() {
   }, [currentDate])
 
   // Preload the first sneaker image for optimal LCP (generic - works with any first sneaker)
-  const firstSneaker = publishedPosts[0];
+  // Use the first sneaker from published posts (not the original array) to ensure it's actually rendered
+  const firstPublishedSneaker = publishedPosts[0];
   // Only preload if we have a first sneaker and we're on the home page
-  // Use a more dynamic approach to prevent Vite from detecting during build
-  const firstSneakerImage = firstSneaker ? (() => {
-    // Construct image URL dynamically to prevent Vite from detecting during build
-    const baseUrl = "https://res.cloudinary.com/dnowyn8vw/image/upload";
-    const path = "v1757197888/nike-lego-bionicle-shoes-box-toy-landscape-2_wwt3we.jpg";
-    return `${baseUrl}/w_600,q_85,f_auto/${path}`;
-  })() : null;
-  useImagePreload(firstSneakerImage);
+  // Use the actual sneaker image URL to ensure preload matches what's rendered
+  useImagePreload(firstPublishedSneaker?.image);
 
   // Memoize click handler
   const handleSneakerClick = useMemo(() => (sneaker) => {

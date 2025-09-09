@@ -10,7 +10,7 @@ const STATIC_ASSETS = [
   '/index.html',
   '/robots.txt',
   '/sitemap.xml',
-  '/assets/index-Ds6WrRyq.js',
+  '/assets/index-CKtPRkY0.js',
   '/assets/nike-tom-sachs-overshoe-sfb-sole-swapped-side-2-optimized-DLTeUcf4.jpg',
   '/assets/vendor-DEQ385Nk.js',
   '/assets/router-CimB4GcN.js',
