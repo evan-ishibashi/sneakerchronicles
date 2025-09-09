@@ -33,7 +33,7 @@ function AppContent() {
   useEffect(() => {
     trackReferrer();
     trackUTMParameters();
-  }, []); // Empty dependency array since these functions are stable
+  }, [trackReferrer, trackUTMParameters]);
 
   return (
     <>

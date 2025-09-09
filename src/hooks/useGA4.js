@@ -1,10 +1,17 @@
-import { useEffect } from 'react';
+import { useEffect, useCallback } from 'react';
 import { useLocation } from 'react-router-dom';
 import { getMeasurementId, isGA4Available } from '../config/ga4';
 
 // Custom hook for GA4 tracking
 export const useGA4 = () => {
-  const location = useLocation();
+  // Safely get location with fallback
+  let location;
+  try {
+    location = useLocation();
+  } catch (error) {
+    // Fallback for when router context is not available
+    location = { pathname: window.location.pathname, search: window.location.search };
+  }
 
   // Track page views on route changes
   useEffect(() => {
@@ -16,11 +23,11 @@ export const useGA4 = () => {
   }, [location]);
 
   // Function to track custom events
-  const trackEvent = (eventName, parameters = {}) => {
+  const trackEvent = useCallback((eventName, parameters = {}) => {
     if (isGA4Available()) {
       window.gtag('event', eventName, parameters);
     }
-  };
+  }, []);
 
   // Function to track sneaker card clicks
   const trackSneakerClick = (sneakerId, sneakerTitle, sneakerSlug) => {
@@ -97,7 +104,7 @@ export const useGA4 = () => {
   };
 
   // Function to track UTM parameters
-  const trackUTMParameters = () => {
+  const trackUTMParameters = useCallback(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const utmSource = urlParams.get('utm_source');
     const utmMedium = urlParams.get('utm_medium');
@@ -115,10 +122,10 @@ export const useGA4 = () => {
         utm_term: utmTerm || 'none',
       });
     }
-  };
+  }, [trackEvent]);
 
   // Track referrer information
-  const trackReferrer = () => {
+  const trackReferrer = useCallback(() => {
     const referrer = document.referrer;
     if (referrer) {
       let source = 'unknown';
@@ -154,7 +161,7 @@ export const useGA4 = () => {
         referrer_url: referrer,
       });
     }
-  };
+  }, [trackEvent]);
 
   // Function to track sneaker engagement (time spent, scroll depth, etc.)
   const trackSneakerEngagement = (sneakerId, sneakerTitle, action, value = null) => {
