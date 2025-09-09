@@ -2,7 +2,7 @@
 const sneaker3 = {
   id: 3,
   slug: "nike-bionicle-sneaker-collaboration",
-  title: "Nike x Bionicle Sneaker Collab",
+  title: "Nike x Bionicle Sneaker Collab (2003)",
   image: "https://res.cloudinary.com/dnowyn8vw/image/upload/w_800,q_85,f_auto/v1757197888/nike-lego-bionicle-shoes-box-toy-landscape-2_wwt3we.jpg",
   releaseDate: "2025-09-07",
   description: "Discover the hidden Nike x Bionicle collaboration from 2003 - one of the most creative and underrated sneaker partnerships in Nike's history with removable toebox and futuristic design",
