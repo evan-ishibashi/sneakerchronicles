@@ -73,7 +73,7 @@ function HomePage() {
 
   // Memoize click handler
   const handleSneakerClick = useMemo(() => (sneaker) => {
-    trackSneakerClick(sneaker.id, sneaker.title);
+    trackSneakerClick(sneaker.id, sneaker.title, sneaker.slug);
   }, [trackSneakerClick])
 
   // Note: First image is preloaded in index.html for optimal LCP

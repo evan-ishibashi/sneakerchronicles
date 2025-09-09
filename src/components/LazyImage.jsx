@@ -31,6 +31,8 @@ const LazyImage = ({
   placeholder = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjBmMGYwIi8+PC9zdmc+',
   width = 800,
   quality = 80,
+  onLoad,
+  onClick,
   ...props
 }) => {
   const [imageSrc, setImageSrc] = useState(placeholder);
@@ -79,6 +81,10 @@ const LazyImage = ({
       img.onload = () => {
         setImageSrc(finalSrc);
         setIsLoaded(true);
+        // Call the onLoad callback if provided
+        if (onLoad) {
+          onLoad();
+        }
       };
       img.onerror = () => {
         // Fallback to original src if optimized fails
@@ -106,9 +112,11 @@ const LazyImage = ({
       alt={alt}
       className={`${className} ${isLoaded ? 'loaded' : 'loading'}`}
       loading={props.loading || 'lazy'}
+      onClick={onClick}
       style={{
         transition: 'opacity 0.3s ease-in-out',
         opacity: isLoaded ? 1 : 0.7,
+        cursor: onClick ? 'pointer' : 'default',
         ...props.style
       }}
     />

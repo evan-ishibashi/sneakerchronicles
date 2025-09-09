@@ -1,7 +1,8 @@
-import React, { useMemo } from 'react'
+import React, { useMemo, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { useSneakerData } from '../hooks/useSneakerData'
 import { useDocumentHead } from '../hooks/useDocumentHead'
+import { useGA4 } from '../hooks/useGA4'
 import TrackableLink from './TrackableLink'
 import LazyImage from './LazyImage'
 
@@ -9,6 +10,7 @@ import LazyImage from './LazyImage'
 function SneakerDetail() {
   const { slug } = useParams()
   const { sneaker, loading, error } = useSneakerData(slug)
+  const { trackSneakerDetailView, trackBackNavigation, trackSneakerEngagement, trackImageInteraction } = useGA4()
 
   // Memoize current date calculation
   const currentDate = useMemo(() => {
@@ -24,6 +26,68 @@ function SneakerDetail() {
     image: sneaker?.image,
     url: sneaker ? `https://sneakerchronicles.com/sneaker/${sneaker.slug}` : 'https://sneakerchronicles.com'
   });
+
+  // Track sneaker detail page view when sneaker data is loaded
+  useEffect(() => {
+    if (sneaker && !loading && !error) {
+      trackSneakerDetailView(
+        sneaker.id,
+        sneaker.title,
+        sneaker.slug,
+        sneaker.releaseDate
+      );
+    }
+  }, [sneaker, loading, error, trackSneakerDetailView]);
+
+  // Track engagement metrics
+  useEffect(() => {
+    if (!sneaker) return;
+
+    let startTime = Date.now();
+    let scrollDepth = 0;
+    let maxScrollDepth = 0;
+
+    // Track time spent on page
+    const trackTimeSpent = () => {
+      const timeSpent = Math.round((Date.now() - startTime) / 1000);
+      if (timeSpent > 0) {
+        trackSneakerEngagement(sneaker.id, sneaker.title, 'time_spent', timeSpent);
+      }
+    };
+
+    // Track scroll depth
+    const trackScrollDepth = () => {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const scrollPercent = Math.round((scrollTop / docHeight) * 100);
+
+      if (scrollPercent > maxScrollDepth) {
+        maxScrollDepth = scrollPercent;
+        trackSneakerEngagement(sneaker.id, sneaker.title, 'scroll_depth', scrollPercent);
+      }
+    };
+
+    // Set up scroll tracking
+    const handleScroll = () => {
+      requestAnimationFrame(trackScrollDepth);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
+    // Track time spent when user leaves the page
+    const handleBeforeUnload = () => {
+      trackTimeSpent();
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+
+    // Cleanup
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+      trackTimeSpent();
+    };
+  }, [sneaker, trackSneakerEngagement]);
 
   // Show loading state
   if (loading) {
@@ -75,11 +139,22 @@ function SneakerDetail() {
   return (
     <div className="sneaker-detail">
       <div className="container">
-        <Link to="/" className="back-button">← Back to Home</Link>
+        <Link
+          to="/"
+          className="back-button"
+          onClick={() => trackBackNavigation(`/sneaker/${sneaker?.slug}`, '/')}
+        >
+          ← Back to Home
+        </Link>
 
         <div className="detail-content">
           <div className="detail-image">
-            <LazyImage src={sneaker.image} alt={sneaker.title} />
+            <LazyImage
+              src={sneaker.image}
+              alt={sneaker.title}
+              onLoad={() => trackImageInteraction(sneaker.id, sneaker.title, 'image_loaded')}
+              onClick={() => trackImageInteraction(sneaker.id, sneaker.title, 'image_clicked')}
+            />
           </div>
 
           <div className="detail-info">
@@ -93,6 +168,11 @@ function SneakerDetail() {
                   eventCategory="social_media"
                   eventLabel="Instagram"
                   className="detail-link"
+                  sneakerContext={{
+                    sneakerId: sneaker.id,
+                    sneakerTitle: sneaker.title,
+                    sneakerSlug: sneaker.slug
+                  }}
                 >
                   📸 Instagram Post
                 </TrackableLink>
@@ -103,6 +183,11 @@ function SneakerDetail() {
                   eventCategory="social_media"
                   eventLabel="YouTube"
                   className="detail-link"
+                  sneakerContext={{
+                    sneakerId: sneaker.id,
+                    sneakerTitle: sneaker.title,
+                    sneakerSlug: sneaker.slug
+                  }}
                 >
                   🎥 YouTube Video
                 </TrackableLink>
@@ -113,6 +198,11 @@ function SneakerDetail() {
                   eventCategory="ecommerce"
                   eventLabel="eBay"
                   className="detail-link"
+                  sneakerContext={{
+                    sneakerId: sneaker.id,
+                    sneakerTitle: sneaker.title,
+                    sneakerSlug: sneaker.slug
+                  }}
                 >
                   🛒 Find on eBay
                 </TrackableLink>

@@ -23,20 +23,66 @@ export const useGA4 = () => {
   };
 
   // Function to track sneaker card clicks
-  const trackSneakerClick = (sneakerId, sneakerTitle) => {
+  const trackSneakerClick = (sneakerId, sneakerTitle, sneakerSlug) => {
     trackEvent('sneaker_click', {
       event_category: 'engagement',
       event_label: sneakerTitle,
       sneaker_id: sneakerId,
+      sneaker_slug: sneakerSlug,
+    });
+  };
+
+  // Function to track sneaker detail page views
+  const trackSneakerDetailView = (sneakerId, sneakerTitle, sneakerSlug, releaseDate) => {
+    trackEvent('sneaker_detail_view', {
+      event_category: 'page_view',
+      event_label: sneakerTitle,
+      sneaker_id: sneakerId,
+      sneaker_slug: sneakerSlug,
+      sneaker_release_date: releaseDate,
+      page_title: `${sneakerTitle} | Sneaker Chronicles`,
+      page_location: window.location.href,
     });
   };
 
   // Function to track external link clicks
-  const trackExternalLink = (url, platform) => {
-    trackEvent('external_link_click', {
+  const trackExternalLink = (url, platform, sneakerContext = null) => {
+    const eventData = {
       event_category: 'outbound',
       event_label: platform,
       link_url: url,
+      destination_platform: platform,
+    };
+
+    // Add sneaker context if provided
+    if (sneakerContext) {
+      eventData.sneaker_id = sneakerContext.sneakerId;
+      eventData.sneaker_title = sneakerContext.sneakerTitle;
+      eventData.sneaker_slug = sneakerContext.sneakerSlug;
+    }
+
+    trackEvent('external_link_click', eventData);
+  };
+
+  // Function to track internal navigation
+  const trackInternalNavigation = (fromPage, toPage, linkText = null) => {
+    trackEvent('internal_navigation', {
+      event_category: 'navigation',
+      event_label: linkText || toPage,
+      from_page: fromPage,
+      to_page: toPage,
+      navigation_type: 'internal',
+    });
+  };
+
+  // Function to track back button clicks
+  const trackBackNavigation = (fromPage, toPage) => {
+    trackEvent('back_navigation', {
+      event_category: 'navigation',
+      event_label: 'back_button',
+      from_page: fromPage,
+      to_page: toPage,
+      navigation_type: 'back',
     });
   };
 
@@ -110,10 +156,43 @@ export const useGA4 = () => {
     }
   };
 
+  // Function to track sneaker engagement (time spent, scroll depth, etc.)
+  const trackSneakerEngagement = (sneakerId, sneakerTitle, action, value = null) => {
+    const eventData = {
+      event_category: 'engagement',
+      event_label: action,
+      sneaker_id: sneakerId,
+      sneaker_title: sneakerTitle,
+      engagement_action: action,
+    };
+
+    if (value !== null) {
+      eventData.engagement_value = value;
+    }
+
+    trackEvent('sneaker_engagement', eventData);
+  };
+
+  // Function to track image interactions
+  const trackImageInteraction = (sneakerId, sneakerTitle, imageAction) => {
+    trackEvent('image_interaction', {
+      event_category: 'engagement',
+      event_label: imageAction,
+      sneaker_id: sneakerId,
+      sneaker_title: sneakerTitle,
+      image_action: imageAction,
+    });
+  };
+
   return {
     trackEvent,
     trackSneakerClick,
+    trackSneakerDetailView,
     trackExternalLink,
+    trackInternalNavigation,
+    trackBackNavigation,
+    trackSneakerEngagement,
+    trackImageInteraction,
     trackTrafficSource,
     trackUTMParameters,
     trackReferrer,
