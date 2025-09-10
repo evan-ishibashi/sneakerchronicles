@@ -1,8 +1,8 @@
 // Service Worker for Sneaker Chronicles
 // NOTE: After each build, update the STATIC_ASSETS array with the new hashed filenames
-const CACHE_NAME = 'sneaker-chronicles-v1';
-const STATIC_CACHE = 'static-v1';
-const DYNAMIC_CACHE = 'dynamic-v1';
+const CACHE_NAME = 'sneaker-chronicles-v2';
+const STATIC_CACHE = 'static-v2';
+const DYNAMIC_CACHE = 'dynamic-v2';
 
 // Assets to cache on install
 const STATIC_ASSETS = [
@@ -10,11 +10,11 @@ const STATIC_ASSETS = [
   '/index.html',
   '/robots.txt',
   '/sitemap.xml',
-  '/assets/index-CKtPRkY0.js',
+  '/assets/index-DK3hn8sx.js',
   '/assets/nike-tom-sachs-overshoe-sfb-sole-swapped-side-2-optimized-DLTeUcf4.jpg',
   '/assets/vendor-DEQ385Nk.js',
   '/assets/router-CimB4GcN.js',
-  '/assets/index-DGT9QyHA.css',
+  '/assets/index-DewV0Qxr.css',
   '/assets/nike-tom-sachs-overshoe-sfb-sole-swapped-side-2-optimized-DLTeUcf4.jpg'
 ];
 
