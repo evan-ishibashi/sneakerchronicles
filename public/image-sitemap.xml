@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url>
+    <loc>https://sneakerchronicles.com/sneaker/welcome-to-sneaker-chronicles</loc>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dnowyn8vw/image/upload/v1757197734/welcome-sample-shoes.jpg</image:loc>
+      <image:title>Welcome to Sneaker Chronicles</image:title>
+      <image:caption>Discover the story behind Welcome to Sneaker Chronicles - rare sneaker analysis and history</image:caption>
+      <image:geo_location>United States</image:geo_location>
+      <image:license>https://sneakerchronicles.com/terms</image:license>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://sneakerchronicles.com/sneaker/tom-sachs-mars-yard-overshoe-sole-swapped</loc>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dnowyn8vw/image/upload/v1757197794/nike-tom-sachs-overshoe-sfb-sole-swapped-side-4_kw932w.jpg</image:loc>
+      <image:title>Tom Sachs Mars Yard Overshoe SOLE SWAPPED</image:title>
+      <image:caption>Discover the story behind Tom Sachs Mars Yard Overshoe SOLE SWAPPED - rare sneaker analysis and history</image:caption>
+      <image:geo_location>United States</image:geo_location>
+      <image:license>https://sneakerchronicles.com/terms</image:license>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://sneakerchronicles.com/sneaker/nike-bionicle-sneaker-collaboration</loc>
+    <image:image>
+      <image:loc>https://res.cloudinary.com/dnowyn8vw/image/upload/v1757197888/nike-lego-bionicle-shoes-box-toy-landscape-2_wwt3we.jpg</image:loc>
+      <image:title>Nike x Bionicle Sneaker Collab</image:title>
+      <image:caption>Discover the story behind Nike x Bionicle Sneaker Collab - rare sneaker analysis and history</image:caption>
+      <image:geo_location>United States</image:geo_location>
+      <image:license>https://sneakerchronicles.com/terms</image:license>
+    </image:image>
+  </url>
+</urlset>

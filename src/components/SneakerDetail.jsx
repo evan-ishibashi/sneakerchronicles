@@ -6,6 +6,7 @@ import { useGA4 } from '../hooks/useGA4'
 import TrackableLink from './TrackableLink'
 import LazyImage from './LazyImage'
 import StoreLinksPopup from './StoreLinksPopup'
+import ImageStructuredData from './ImageStructuredData'
 
 // Sneaker Detail Page Component
 function SneakerDetail() {
@@ -153,8 +154,18 @@ function SneakerDetail() {
             <LazyImage
               src={sneaker.image}
               alt={sneaker.title}
+              sneakerData={sneaker}
+              imageType="main"
+              useSEOOptimization={true}
+              width={1200}
+              quality={90}
               onLoad={() => trackImageInteraction(sneaker.id, sneaker.title, 'image_loaded')}
               onClick={() => trackImageInteraction(sneaker.id, sneaker.title, 'image_clicked')}
+            />
+            <ImageStructuredData
+              sneaker={sneaker}
+              imageUrl={sneaker.image}
+              imageType="main"
             />
           </div>
 

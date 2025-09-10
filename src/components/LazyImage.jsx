@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { getSEOOptimizedImageUrl, generateImageAltText, generateImageTitle } from '../utils/imageSEO';
 
-// Helper function to get optimized image URL
+// Helper function to get optimized image URL (legacy support)
 const getOptimizedImageUrl = (originalUrl, width = 800, quality = 80) => {
   if (!originalUrl) return originalUrl;
 
@@ -33,6 +34,9 @@ const LazyImage = ({
   quality = 80,
   onLoad,
   onClick,
+  sneakerData = null, // Pass sneaker data for SEO optimization
+  imageType = 'main', // Type of image for SEO context
+  useSEOOptimization = false, // Flag to enable SEO optimization
   ...props
 }) => {
   const [imageSrc, setImageSrc] = useState(placeholder);
@@ -68,7 +72,15 @@ const LazyImage = ({
 
   useEffect(() => {
     if (isInView && src) {
-      const optimizedSrc = getOptimizedImageUrl(src, width, quality);
+      let optimizedSrc;
+
+      if (useSEOOptimization && sneakerData) {
+        // Use SEO-optimized URL with better parameters
+        optimizedSrc = getSEOOptimizedImageUrl(src, width, quality);
+      } else {
+        // Use standard optimization
+        optimizedSrc = getOptimizedImageUrl(src, width, quality);
+      }
 
       // Add cache-busting parameter for Cloudinary URLs
       let finalSrc = optimizedSrc;
@@ -102,14 +114,31 @@ const LazyImage = ({
       };
       img.src = finalSrc;
     }
-  }, [isInView, src, placeholder, width, quality]);
+  }, [isInView, src, placeholder, width, quality, useSEOOptimization, sneakerData]);
+
+  // Generate SEO-optimized alt text if sneaker data is provided
+  const getOptimizedAlt = () => {
+    if (useSEOOptimization && sneakerData) {
+      return generateImageAltText(sneakerData, imageType);
+    }
+    return alt;
+  };
+
+  // Generate SEO-optimized title attribute
+  const getOptimizedTitle = () => {
+    if (useSEOOptimization && sneakerData) {
+      return generateImageTitle(sneakerData, imageType);
+    }
+    return props.title || alt;
+  };
 
   return (
     <img
       {...props}
       ref={setImageRef}
       src={imageSrc}
-      alt={alt}
+      alt={getOptimizedAlt()}
+      title={getOptimizedTitle()}
       className={`${className} ${isLoaded ? 'loaded' : 'loading'}`}
       loading={props.loading || 'lazy'}
       onClick={onClick}
